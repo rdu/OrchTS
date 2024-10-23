@@ -1,7 +1,6 @@
 {
   "name": "@rdu/orchts",
   "version": "0.1.0",
-  "type": "module",
   "description": "An orchestration framework for Large Language Models (LLM) with TypeScript support",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
@@ -27,9 +26,10 @@
   "private": false,
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm",
+    "build": "npm run clean && npm run build:cjs && npm run build:esm && npm run rename:esm",
     "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:esm": "tsc -p tsconfig.esm.json",
+    "rename:esm": "node scripts/rename-esm.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint 'src/**/*.ts'",

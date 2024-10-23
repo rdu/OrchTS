@@ -4,8 +4,7 @@
         "module": "ESNext",
         "outDir": "./dist/esm",
         "declaration": true,
-        "declarationDir": "./dist/types",
-        "moduleResolution": "bundler"
+        "declarationDir": "./dist/types"
     },
     "include": [
         "src/**/*"
