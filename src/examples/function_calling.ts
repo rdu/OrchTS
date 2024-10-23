@@ -1,7 +1,7 @@
-import { Agent } from '../agent';
-import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions';
-import { OrchTS } from '../orchts';
-import { ContextVariables, Message } from '../types';
+import { Agent } from '../agent.js';
+import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions.js';
+import { OrchTS } from '../orchts.js';
+import { ContextVariables, Message } from '../types.js';
 
 const client = new OrchTS({ debug: true });
 

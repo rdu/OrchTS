@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
-        "target": "ES2020",
-        "module": "ESNext",
+        "target": "ES2022",
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
         "lib": [
-            "ES2020"
+            "ES2022"
         ],
         "declaration": true,
         "declarationMap": true,
@@ -12,7 +13,6 @@
         "esModuleInterop": true,
         "skipLibCheck": true,
         "forceConsistentCasingInFileNames": true,
-        "moduleResolution": "node",
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "types": [

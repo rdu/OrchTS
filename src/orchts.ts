@@ -1,8 +1,8 @@
-import { ChatCompletionMessage, ContextVariables, LLMProvider, LLMProviderParams, Message, OrchTSConfig, Response, Result, RunOptions, ToolCall } from './types';
-import createLogger from './logger';
-import { Agent } from './agent';
-import { FunctionMetadata } from './functions';
-import { OpenAIProvider } from './provider/openai.provider';
+import { ChatCompletionMessage, ContextVariables, LLMProvider, LLMProviderParams, Message, OrchTSConfig, Response, Result, RunOptions, ToolCall } from './types.js';
+import createLogger from './logger.js';
+import { Agent } from './agent.js';
+import { FunctionMetadata } from './functions.js';
+import { OpenAIProvider } from './provider/openai.provider.js';
 
 /**
  * OrchTS - Main orchestrator class that manages interactions between agents, messages, and tools.

@@ -1,8 +1,6 @@
-import 'reflect-metadata';
-
-export { Agent } from './agent';
-export { OrchTS } from './orchts';
-export { AgentFunction, AgentFuncParam, FunctionBase } from './functions';
+export { Agent } from './agent.js';
+export { OrchTS } from './orchts.js';
+export { AgentFunction, AgentFuncParam, FunctionBase } from './functions.js';
 export type {
     Message,
     Result,
@@ -17,4 +15,4 @@ export type {
     RunOptions,
     AgentFunctionReturn,
     ToolChoice
-} from './types';
+} from './types.js';

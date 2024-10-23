@@ -1,6 +1,6 @@
 import OpenAI from 'openai';
-import { LLMProvider, LLMProviderParams, ChatCompletionMessage, Message, Debug } from '../types';
-import createLogger from '../logger';
+import { LLMProvider, LLMProviderParams, ChatCompletionMessage, Message, Debug } from '../types.js';
+import createLogger from '../logger.js';
 
 /**
  * OpenAIProvider is responsible for interacting with the OpenAI API

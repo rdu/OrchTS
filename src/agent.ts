@@ -1,5 +1,5 @@
-import { FunctionMetadata } from './functions';
-import { ContextVariables, Debug, LLMProvider, ToolChoice } from './types';
+import { FunctionMetadata } from './functions.js';
+import { ContextVariables, Debug, LLMProvider, ToolChoice } from './types.js';
 
 /**
  * The `Agent` class represents an AI agent with specific parameters such as name, instructions,
