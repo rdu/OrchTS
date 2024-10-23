@@ -1,0 +1,21 @@
+# These owners will be the default owners for everything in
+# the repo. Unless a later match takes precedence,
+# they will be requested for review when someone opens a PR.
+*       @rdu
+
+# Order is important; the last matching pattern takes the most
+# precedence.
+
+# Core Library Files
+/src/*.ts        @rdu
+
+# Test Files
+/src/__tests__/  @rdu
+
+# Examples
+/src/examples/   @rdu
+
+# Build and CI configuration
+/.github/        @rdu
+/tsconfig*.json  @rdu
+package.json     @rdu

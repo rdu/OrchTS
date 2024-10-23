@@ -1,0 +1,19 @@
+documentation:
+  - 'README.md'
+  - 'docs/**/*'
+
+dependencies:
+  - 'package.json'
+  - 'package-lock.json'
+
+source:
+  - 'src/**/*'
+  - '!src/__tests__/**/*'
+  - '!src/**/*.test.ts'
+
+tests:
+  - 'src/__tests__/**/*'
+  - 'src/**/*.test.ts'
+
+examples:
+  - 'src/examples/**/*'
