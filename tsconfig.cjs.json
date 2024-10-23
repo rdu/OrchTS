@@ -3,9 +3,15 @@
     "compilerOptions": {
         "module": "CommonJS",
         "outDir": "./dist/cjs",
-        "declarationDir": "./dist/types"
+        "declaration": true,
+        "declarationDir": "./dist/types",
+        "moduleResolution": "node"
     },
     "include": [
-        "src"
+        "src/**/*"
+    ],
+    "exclude": [
+        "src/**/*.test.ts",
+        "src/__tests__/**/*"
     ]
 }

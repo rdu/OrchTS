@@ -3,9 +3,15 @@
     "compilerOptions": {
         "module": "ESNext",
         "outDir": "./dist/esm",
-        "declarationDir": "./dist/types"
+        "declaration": true,
+        "declarationDir": "./dist/types",
+        "moduleResolution": "bundler"
     },
     "include": [
-        "src"
+        "src/**/*"
+    ],
+    "exclude": [
+        "src/**/*.test.ts",
+        "src/__tests__/**/*"
     ]
 }
