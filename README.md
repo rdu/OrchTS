@@ -1,6 +1,6 @@
 # OrchTS
 
-OrchTS is an experimental TypeScript framework for orchestrating Large Language Models (LLMs), heavily inspired by OpenAI's Python-based [Swarm](https://github.com/openai/swarm) framework. It provides a simple, lightweight approach to building LLM-powered applications with minimal boilerplate code.
+OrchTS is an experimental TypeScript framework for orchestrating Large Language Models (LLM), heavily inspired by OpenAI's Python-based [Swarm](https://github.com/openai/swarm) framework. It provides a simple, lightweight approach to building LLM-powered applications with minimal boilerplate code.
 
 ## Status: Experimental
 
@@ -21,31 +21,77 @@ This project is in an experimental state and far from complete. It's meant to se
 npm install @rdu/orchts
 ```
 
+## Project Setup
+
+1. Create a new project and initialize it:
+```bash
+mkdir my-orchts-project
+cd my-orchts-project
+npm init -y
+```
+
+2. Install TypeScript and configure it:
+```bash
+npm install typescript @types/node --save-dev
+npx tsc --init
+```
+
+3. Update your tsconfig.json:
+```json
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "NodeNext",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "skipLibCheck": true,
+    "allowJs": true,
+    "outDir": "dist"
+  }
+}
+```
+
+4. Update your package.json:
+```json
+{
+  "type": "module",
+  "scripts": {
+    "start": "node --loader ts-node/esm your-script.ts"
+  }
+}
+```
+
 ## Quick Start
 
-Here's a simple example of using OrchTS:
+Here's a simple example showing how to use OrchTS:
 
 ```typescript
-import { Agent, OrchTS } from '@rdu/orchts';
+import { Agent, OrchTS, type Message } from '@rdu/orchts';
 
-const client = new OrchTS();
+const run = async () => {
+    const client = new OrchTS();
 
-const agent = new Agent({
-    name: 'SimpleAgent',
-    instructions: "You are a helpful agent",
-});
+    const agent = new Agent({
+        name: 'SimpleAgent',
+        instructions: "You are a helpful agent",
+    });
 
-const messages = [{ 
-    role: "user", 
-    content: "What's the weather like?" 
-}];
+    const messages: Message[] = [{ 
+        role: "user", 
+        content: "What's the weather like?" 
+    }];
 
-const response = await client.run({
-    agent: agent,
-    messages: messages
-});
+    const response = await client.run({
+        agent: agent,
+        messages: messages
+    });
 
-console.log(response.messages[response.messages.length - 1].content);
+    console.log(response.messages[response.messages.length - 1].content);
+};
+
+run().catch(console.error);
 ```
 
 For more examples, check out the [examples directory](src/examples).
