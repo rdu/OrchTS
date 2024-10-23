@@ -1,6 +1,6 @@
 {
   "name": "@rdu/orchts",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "An orchestration framework for Large Language Models (LLM) with TypeScript support",
   "type": "module",
   "main": "./dist/index.js",
