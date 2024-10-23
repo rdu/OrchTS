@@ -3,30 +3,18 @@
   "version": "0.1.1",
   "description": "An orchestration framework for Large Language Models (LLM) with TypeScript support",
   "type": "module",
-  "exports": {
-    ".": {
-      "import": "./dist/esm/index.js",
-      "require": "./dist/cjs/index.js",
-      "types": "./dist/types/index.d.ts"
-    }
-  },
-  "main": "./dist/cjs/index.js",
-  "module": "./dist/esm/index.js",
-  "types": "./dist/types/index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
     "dist",
-    "src",
     "README.md",
     "LICENSE"
   ],
   "private": false,
   "scripts": {
     "clean": "rimraf dist",
-    "build": "npm run clean && npm run build:cjs && npm run build:esm",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:esm": "tsc -p tsconfig.esm.json",
+    "build": "tsc",
     "test": "jest",
-    "test:watch": "jest --watch",
     "lint": "eslint 'src/**/*.ts'",
     "lint:fix": "eslint \"src/**/*.ts\" --fix",
     "prepare": "npm run build",
@@ -41,6 +29,7 @@
     "orchestration",
     "typescript",
     "openai",
+    "swarm",
     "agents",
     "function-calling",
     "conversation",
@@ -61,13 +50,10 @@
   },
   "homepage": "https://github.com/rdu/orchts#readme",
   "dependencies": {
-    "chalk": "^5.3.0",
-    "logform": "^2.6.1",
     "openai": ">=4.0.0",
     "pino": "^8.16.0",
     "pino-pretty": "^11.3.0",
-    "reflect-metadata": ">=0.1.13",
-    "zod": "^3.23.8"
+    "reflect-metadata": ">=0.1.13"
   },
   "devDependencies": {
     "@types/jest": "^29.5.13",

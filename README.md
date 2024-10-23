@@ -30,25 +30,33 @@ cd my-orchts-project
 npm init -y
 ```
 
-2. Install TypeScript and configure it:
+2. Install the required dependencies. You can choose between two approaches:
+
+Using tsx (recommended):
 ```bash
-npm install typescript @types/node --save-dev
-npx tsc --init
+npm install @rdu/orchts
+npm install typescript @types/node tsx --save-dev
 ```
 
-3. Update your tsconfig.json:
+Using ts-node:
+```bash
+npm install @rdu/orchts
+npm install typescript @types/node ts-node --save-dev
+```
+
+3. Create tsconfig.json:
 ```json
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES2020",
+    "module": "NodeNext",
     "moduleResolution": "NodeNext",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "skipLibCheck": true,
-    "allowJs": true,
-    "outDir": "dist"
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   }
 }
 ```
@@ -58,14 +66,17 @@ npx tsc --init
 {
   "type": "module",
   "scripts": {
-    "start": "node --loader ts-node/esm your-script.ts"
+    // If using tsx (recommended):
+    "start": "tsx your-script.ts"
+    // OR if using ts-node:
+    "start": "NODE_OPTIONS=\"--loader ts-node/esm\" node your-script.ts"
   }
 }
 ```
 
 ## Quick Start
 
-Here's a simple example showing how to use OrchTS:
+Create a new file (e.g., `test.ts`):
 
 ```typescript
 import { Agent, OrchTS, type Message } from '@rdu/orchts';
@@ -92,6 +103,11 @@ const run = async () => {
 };
 
 run().catch(console.error);
+```
+
+Run your script:
+```bash
+npm start
 ```
 
 For more examples, check out the [examples directory](src/examples).
@@ -124,12 +140,12 @@ const agent = new Agent({
 });
 ```
 
-## Compatibility
+## Requirements
 
-- Requires TypeScript 4.8+
-- Works with Node.js 18+
-- Currently supports OpenAI models with function calling capabilities
-- Requires experimental decorators enabled in TypeScript config
+- Node.js ≥ 18.0.0
+- TypeScript ≥ 4.8.0
+- Experimental decorators enabled in TypeScript config
+- ESM module system
 
 ## Contributing
 
