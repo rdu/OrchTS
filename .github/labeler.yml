@@ -1,19 +1,15 @@
 documentation:
-  - 'README.md'
-  - 'docs/**/*'
+  - any: ['README.md', 'docs/**/*']
 
 dependencies:
-  - 'package.json'
-  - 'package-lock.json'
+  - any: ['package.json', 'package-lock.json']
 
 source:
-  - 'src/**/*'
-  - '!src/__tests__/**/*'
-  - '!src/**/*.test.ts'
+  - any: ['src/**/*']
+  - all: ['!src/__tests__/**/*', '!src/**/*.test.ts']
 
 tests:
-  - 'src/__tests__/**/*'
-  - 'src/**/*.test.ts'
+  - any: ['src/__tests__/**/*', 'src/**/*.test.ts']
 
 examples:
-  - 'src/examples/**/*'
+  - any: ['src/examples/**/*']
