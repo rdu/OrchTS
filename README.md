@@ -2,6 +2,9 @@
 
 OrchTS is an experimental TypeScript framework for orchestrating Large Language Models (LLM), heavily inspired by OpenAI's Python-based [Swarm](https://github.com/openai/swarm) framework. It provides a simple, lightweight approach to building LLM-powered applications with minimal boilerplate code.
 
+![image](https://github.com/user-attachments/assets/9f9b5f9d-99c9-4cc9-9779-4c22d595d4cf)
+
+
 ## Status: Experimental
 
 This project is in an experimental state and far from complete. It's meant to serve as a foundation for exploring LLM orchestration patterns in TypeScript. While it's functional and usable, expect changes and improvements as the project evolves.
