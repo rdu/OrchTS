@@ -1,7 +1,5 @@
-import { Agent } from '../agent.js';
-import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions.js';
-import { OrchTS } from '../orchts.js';
-import { ContextVariables, Message } from '../types.js';
+import { Agent, AgentFunction, FunctionBase, OrchTS, Message, AgentFuncParam, ContextVariables } from '@rdu/orchts';
+
 
 const client = new OrchTS({ debug: true });
 
@@ -22,7 +20,7 @@ const agent = new Agent({
     functions: [weatherFunctions.get_weather]
 });
 
-const messages: Message[] = [{ 'role': 'user', 'content': 'I Live in Germany, specific in Düsseldorf, what clothes should I wear today?' }];
+const messages: Message[] = [{ 'role': 'user', 'content': 'I Live in Germany, specific in Hamburg, what clothes should I wear today?' }];
 
 const response = client.run({
     agent: agent,

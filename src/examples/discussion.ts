@@ -1,7 +1,5 @@
-import { Agent } from '../agent.js';
-import { AgentFunction, FunctionBase } from '../functions.js';
-import { OrchTS } from '../orchts.js';
-import { Message, ToolChoice } from '../types.js';
+import { Agent, AgentFunction, FunctionBase, OrchTS, Message, ToolChoice } from '@rdu/orchts';
+
 
 const client = new OrchTS({ debug: true });
 

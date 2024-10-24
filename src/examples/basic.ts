@@ -1,6 +1,5 @@
-import { Agent } from '../agent.js';
-import { OrchTS } from '../orchts.js';
-import { Message } from '../types.js';
+import { Agent, OrchTS, Message } from '@rdu/orchts';
+
 
 const client = new OrchTS();
 
