@@ -1,4 +1,4 @@
-import { Agent, AgentFunction, FunctionBase, OrchTS, Message, AgentFuncParam, ContextVariables, ToolChoice } from '@rdu/orchts';
+import { Agent, AgentFunction, FunctionBase, OrchTS, Message, ToolChoice } from '@rdu/orchts';
 
 const client = new OrchTS({ debug: true });
 
