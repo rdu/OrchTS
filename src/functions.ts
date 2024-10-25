@@ -91,32 +91,50 @@ export function AgentFunction(description?: string): MethodDecorator
     {
         const func = descriptor.value as Function;
 
-        const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey) as Array<any>; // eslint-disable-line @typescript-eslint/no-explicit-any
-        const returnType = Reflect.getMetadata('design:returntype', target, propertyKey);
-        const paramNames = getParamNames(func);
-        const constructor = target.constructor as Function;
-        const classParams: Record<string | symbol, any[]> = Reflect.getMetadata(PARAM_METADATA_KEY, constructor) || {}; // eslint-disable-line @typescript-eslint/no-explicit-any
-        const agentParams = classParams[propertyKey] || [];
+        try 
+        {
+            const paramTypes = Reflect.getMetadata('design:paramtypes', target, propertyKey) || [];
+            const returnType = Reflect.getMetadata('design:returntype', target, propertyKey);
+            const paramNames = getParamNames(func);
+            const constructor = target.constructor as Function;
+            const classParams: Record<string | symbol, any[]> = Reflect.getMetadata(PARAM_METADATA_KEY, constructor) || {}; // eslint-disable-line @typescript-eslint/no-explicit-any
+            const agentParams = classParams[propertyKey] || [];
 
-        const metadata: FunctionMetadata = {
-            name: propertyKey.toString(),
-            description,
-            params: paramNames.map((name, index) =>
-            {
-                const param = {
-                    name,
-                    type: agentParams[index]?.type || paramTypes[index]?.name || 'any',
-                    optional: agentParams[index]?.optional ?? false,
-                    description: agentParams[index]?.description
-                };
+            const metadata: FunctionMetadata = {
+                name: propertyKey.toString(),
+                description,
+                params: paramNames.map((name, index) =>
+                {
+                    const param = {
+                        name,
+                        type: agentParams[index]?.type ||
+                            (paramTypes[index] ? paramTypes[index]?.name || 'any' : 'any'),
+                        optional: agentParams[index]?.optional ?? false,
+                        description: agentParams[index]?.description
+                    };
 
-                return param;
-            }),
-            returnType: returnType?.name || 'void',
-            func
-        };
+                    return param;
+                }),
+                returnType: returnType?.name || 'void',
+                func
+            };
 
-        Reflect.defineMetadata(FUNCTION_METADATA_KEY, metadata, descriptor.value as Function);
+            Reflect.defineMetadata(FUNCTION_METADATA_KEY, metadata, descriptor.value as Function);
+        }
+        catch (error)
+        {
+            console.error('Error in AgentFunction decorator:', error);
+            // Provide a fallback metadata
+            const metadata: FunctionMetadata = {
+                name: propertyKey.toString(),
+                description: description || 'No description available',
+                params: [],
+                returnType: 'any',
+                func
+            };
+
+            Reflect.defineMetadata(FUNCTION_METADATA_KEY, metadata, descriptor.value as Function);
+        }
     };
 }
 

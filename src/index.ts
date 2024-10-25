@@ -1,3 +1,5 @@
+import 'reflect-metadata';
+
 export { Agent } from './agent.js';
 export { OrchTS } from './orchts.js';
 export { AgentFunction, AgentFuncParam, FunctionBase } from './functions.js';
