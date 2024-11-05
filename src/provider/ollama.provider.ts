@@ -14,7 +14,7 @@ interface OllamaMessage
         type: 'function';
         function: {
             name: string;
-            arguments: { [key: string]: any };
+            arguments: { [key: string]: any }; // eslint-disable-line @typescript-eslint/no-explicit-any
         };
     }[];
 }
@@ -59,13 +59,13 @@ export class OllamaProvider implements LLMProvider
      * @returns Array of messages in Ollama's format
      * @private
      */
-    private transformMessagesForOllama(messages: Array<any>): OllamaMessage[]
+    private transformMessagesForOllama(messages: Array<any>): OllamaMessage[] // eslint-disable-line @typescript-eslint/no-explicit-any
     {
         return messages.map(msg => ({
             role: msg.role,
             content: msg.content,
             ...(msg.tool_calls && {
-                tool_calls: msg.tool_calls.map((tool: any) => ({
+                tool_calls: msg.tool_calls.map((tool: any) => ({ // eslint-disable-line @typescript-eslint/no-explicit-any
                     id: tool.id,
                     type: 'function',
                     function: {
@@ -83,9 +83,9 @@ export class OllamaProvider implements LLMProvider
      * @returns Transformed tool calls array or undefined if no tools were called
      * @private
      */
-    private transformToolCallsForResponse(toolCalls: any[] | undefined): any[] | undefined
+    private transformToolCallsForResponse(toolCalls: any[] | undefined): any[] | undefined // eslint-disable-line @typescript-eslint/no-explicit-any
     {
-        if (!toolCalls) return undefined;
+        if (!toolCalls) { return undefined; }
 
         return toolCalls.map(tool => ({
             id: tool.id,
@@ -106,6 +106,7 @@ export class OllamaProvider implements LLMProvider
     private ensureValidRole(role: string): MessageRole
     {
         const validRoles: MessageRole[] = ['user', 'assistant', 'system', 'tool'];
+
         return validRoles.includes(role as MessageRole)
             ? (role as MessageRole)
             : 'assistant';
@@ -142,10 +143,11 @@ export class OllamaProvider implements LLMProvider
                 tool_calls: this.transformToolCallsForResponse(response.message.tool_calls)
             };
 
-        } catch (error)
+        }
+        catch (error)
         {
             console.error('Error in OllamaProvider:', error);
-            throw new Error(`OllamaProvider error: ${(error as any).message}`);
+            throw new Error(`OllamaProvider error: ${(error as any).message}`); // eslint-disable-line @typescript-eslint/no-explicit-any
         }
     }
 }
