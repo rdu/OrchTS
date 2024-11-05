@@ -13,7 +13,7 @@ This project is in an experimental state and far from complete. It's meant to se
 
 - **Simple Architecture**: Follows Swarm's philosophy of minimalism and clarity
 - **TypeScript Native**: Built from the ground up with TypeScript, providing full type safety and IDE support
-- **Provider Agnostic**: Extensible LLMProvider interface (currently implemented for OpenAI)
+- **Provider Agnostic**: Extensible LLMProvider interface (currently implemented for OpenAI and Ollama)
 - **Function Calling**: Support for LLM function calling with type-safe decorators
 - **Agent Communication**: Flexible agent-to-agent communication with optional message history transfer
 - **Minimal Boilerplate**: Get started quickly with minimal configuration
@@ -22,6 +22,11 @@ This project is in an experimental state and far from complete. It's meant to se
 
 ```bash
 npm install @rdu/orchts
+```
+
+For Ollama support, additionally install:
+```bash
+npm install ollama
 ```
 
 ## Project Setup
@@ -82,10 +87,13 @@ npm install typescript @types/node ts-node --save-dev
 Create a new file (e.g., `test.ts`):
 
 ```typescript
-import { Agent, OrchTS, type Message } from '@rdu/orchts';
+import { Agent, OrchTS, type Message, OllamaProvider } from '@rdu/orchts';
 
 const run = async () => {
-    const client = new OrchTS();
+    // Initialize with Ollama provider
+    const client = new OrchTS({
+        provider: new OllamaProvider('mistral') // or any other Ollama model
+    });
 
     const agent = new Agent({
         name: 'SimpleAgent',
@@ -108,11 +116,6 @@ const run = async () => {
 run().catch(console.error);
 ```
 
-Run your script:
-```bash
-npm start
-```
-
 For more examples, check out the [examples directory](src/examples).
 
 ## Architecture
@@ -121,12 +124,12 @@ OrchTS is built around three main concepts:
 
 1. **Agents**: Entities that can process messages and make decisions
 2. **Functions**: Type-safe function calling using decorators
-3. **LLMProviders**: Abstraction layer for different LLM services
+3. **LLMProviders**: Abstraction layer for different LLM services (OpenAI, Ollama)
 
-### Example with Function Calling
+### Example with Function Calling (Ollama)
 
 ```typescript
-import { Agent, AgentFunction, FunctionBase, OrchTS } from '@rdu/orchts';
+import { Agent, AgentFunction, FunctionBase, OrchTS, OllamaProvider } from '@rdu/orchts';
 
 class WeatherFunctions extends FunctionBase {
     @AgentFunction("Get the current weather")
@@ -136,11 +139,35 @@ class WeatherFunctions extends FunctionBase {
 }
 
 const weatherFunctions = new WeatherFunctions();
+const provider = new OllamaProvider('mistral');
+
 const agent = new Agent({
     name: 'WeatherAgent',
     instructions: "You help with weather information",
     functions: [weatherFunctions.getWeather],
 });
+
+const client = new OrchTS({ provider });
+```
+
+## LLM Providers
+
+OrchTS supports multiple LLM providers:
+
+### OpenAI Provider
+The default provider, using OpenAI's API.
+
+### Ollama Provider
+Local LLM provider using Ollama. Features include:
+- Support for various Ollama models (mistral, llama, etc.)
+- Function calling capabilities
+- Custom host configuration
+- Message transformation handling
+
+Example configuration:
+```typescript
+const provider = new OllamaProvider('mistral', 'http://localhost:11434');
+const client = new OrchTS({ provider });
 ```
 
 ## Requirements
@@ -156,7 +183,7 @@ Contributions are very welcome! This project is meant to be a collaborative effo
 
 ### Areas for Contribution
 
-- Additional LLM providers (especially Anthropic and Ollama)
+- Additional LLM providers
 - Bug fixes and improvements
 - Documentation enhancements
 - Examples and use cases
