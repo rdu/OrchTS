@@ -1,9 +1,9 @@
 import { Agent, AgentFunction, FunctionBase, OrchTS, Message, AgentFuncParam, ContextVariables } from '@rdu/orchts';
-import { OpenOllamaProvider } from '../provider/ollama.provider.js';
+import { OllamaProvider } from '../provider/ollama.provider.js';
 
-const ollama = new OpenOllamaProvider();
+const ollama = new OllamaProvider('llama3.2', 'host.docker.internal');
 
-const client = new OrchTS({ debug: true, defaultLLMProvider: ollama });
+const client = new OrchTS({ debug: false, defaultLLMProvider: ollama });
 
 class WeatherFunctions extends FunctionBase
 {
@@ -18,7 +18,7 @@ const weatherFunctions = new WeatherFunctions();
 
 const agent = new Agent({
     name: 'Agent',
-    instructions: (vars: ContextVariables) => { return 'You are a helpful agent. Your name is: ' + vars['name'] + '. You always must introduce yourself'; },
+    instructions: (vars: ContextVariables) => { return 'You are a helpful agent. Your name is: ' + vars['name'] + '. You always must introduce yourself. Answer in english.'; },
     functions: [weatherFunctions.get_weather]
 });
 
@@ -27,7 +27,7 @@ const messages: Message[] = [{ 'role': 'user', 'content': 'I Live in Germany, sp
 const response = client.run({
     agent: agent,
     messages: messages,
-    context_variables: { 'name': 'Willi', temperature: 79 }
+    context_variables: { 'name': 'Willi', temperature: 114 }
 });
 
 response.then((response) =>
