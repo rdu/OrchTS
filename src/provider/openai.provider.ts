@@ -39,7 +39,7 @@ export class OpenAIProvider implements LLMProvider
     private convertFunctionDefinition(tool: OpenAI.ChatCompletionTool): OpenAI.ChatCompletionTool
     {
         // Validate that the tool is a function and has a function object.
-        if (tool.type !== 'function' || typeof tool.function !== 'object')
+        if (tool.type !== 'function' || !tool.function || typeof tool.function !== 'object')
         {
             // Log an error if the function definition is invalid.
             this.logger.error('Invalid function definition encountered in convertFunctionDefinition', { tool });
@@ -142,7 +142,7 @@ export class OpenAIProvider implements LLMProvider
         try
         {
             // Convert function definitions to OpenAI format.
-            const tools = params.tools?.map(this.convertFunctionDefinition);
+            const tools = params.tools?.map(tool => this.convertFunctionDefinition(tool));
 
             // Log the parameters sent to OpenAI API at 'debug' level.
             this.logger.debug('Sending completion request to OpenAI API', {
