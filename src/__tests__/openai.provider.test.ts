@@ -18,8 +18,8 @@ jest.mock('openai', () =>
 });
 
 // Now import the modules you need
-import { OpenAIProvider } from '../provider/openai.provider';
-import { LLMProviderParams, Message, ChatCompletionMessage, ToolChoice } from '../types';
+import { OpenAIProvider } from '../provider/openai.provider.js';
+import { LLMProviderParams, Message, ChatCompletionMessage, ToolChoice } from '../types.js';
 
 describe('OpenAIProvider', () =>
 {

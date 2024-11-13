@@ -1,7 +1,7 @@
-import { Agent } from '../agent';
-import { AgentFunction, FunctionBase } from '../functions';
-import { OrchTS } from '../orchts';
-import { LLMProvider, Message, RunOptions } from '../types';
+import { Agent } from '../agent.js';
+import { AgentFunction, FunctionBase } from '../functions.js';
+import { OrchTS } from '../orchts.js';
+import { LLMProvider, Message, RunOptions } from '../types.js';
 
 // Mock-Klassen
 class MockAgent extends Agent

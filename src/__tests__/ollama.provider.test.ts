@@ -1,5 +1,5 @@
-import { OllamaProvider } from '../provider/ollama.provider';
-import { Message, LLMProviderParams, ToolChoice } from '../types';
+import { OllamaProvider } from '../provider/ollama.provider.js';
+import { Message, LLMProviderParams, ToolChoice } from '../types.js';
 
 // Mock Ollama class
 jest.mock('ollama', () =>

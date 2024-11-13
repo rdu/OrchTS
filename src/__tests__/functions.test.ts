@@ -1,4 +1,4 @@
-import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions';
+import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions.js';
 
 describe('FunctionBase', () =>
 {

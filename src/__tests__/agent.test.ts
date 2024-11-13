@@ -1,6 +1,6 @@
-import { Agent } from '../agent';
-import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions';
-import { ContextVariables, LLMProvider, ToolChoice } from '../types';
+import { Agent } from '../agent.js';
+import { AgentFuncParam, AgentFunction, FunctionBase } from '../functions.js';
+import { ContextVariables, LLMProvider, ToolChoice } from '../types.js';
 
 class TestFunctions extends FunctionBase
 {
