@@ -12,8 +12,8 @@ import
     RunOptions,
     AgentFunctionReturn,
     ToolChoice
-} from '../types';
-import { Agent } from '../agent';
+} from '../types.js';
+import { Agent } from '../agent.js';
 
 describe('Types', () =>
 {

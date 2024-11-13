@@ -7,7 +7,7 @@ jest.mock('pino', () => ({
     pino: mockPinoFn
 }));
 
-import createLogger from '../logger';
+import createLogger from '../logger.js';
 
 describe('Logger', () =>
 {
