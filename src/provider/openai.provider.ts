@@ -158,7 +158,7 @@ export class OpenAIProvider implements LLMProvider
                 model: this.model,
                 messages: this.convertMessages(params.messages),
                 tools: tools,
-                parallel_tool_calls: params.parallel_tool_calls || false,
+                parallel_tool_calls: params.parallel_tool_calls || undefined,
                 tool_choice: params.tool_choice || undefined
             });
 

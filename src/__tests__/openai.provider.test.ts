@@ -190,7 +190,7 @@ describe('OpenAIProvider', () =>
                 messages: expect.any(Array),
                 tools: expectedTools,
                 tool_choice: undefined,
-                parallel_tool_calls: false
+                parallel_tool_calls: undefined
             });
         });
 
@@ -253,7 +253,7 @@ describe('OpenAIProvider', () =>
                 }],
                 tools: [],
                 tool_choice: undefined,
-                parallel_tool_calls: false
+                parallel_tool_calls: undefined
             });
         });
 
@@ -293,7 +293,7 @@ describe('OpenAIProvider', () =>
                 messages: expect.any(Array),
                 tools: [],
                 tool_choice: 'testFunction',
-                parallel_tool_calls: false
+                parallel_tool_calls: undefined
             });
         });
     });
