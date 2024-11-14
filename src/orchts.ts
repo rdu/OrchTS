@@ -179,7 +179,9 @@ export class OrchTS
             messages: updatedMessages as Message[],
             tools: tools.length > 0 ? tools : undefined,
             tool_choice: agent.params.tool_choice || null,
-            parallel_tool_calls: agent.params.parallel_tool_calls || undefined
+            ...(agent.params.parallel_tool_calls != null && {
+                parallel_tool_calls: agent.params.parallel_tool_calls
+            })
         };
 
         // Log the parameters sent to LLM provider
