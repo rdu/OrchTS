@@ -350,7 +350,7 @@ export class OrchTS
 
                 // Execute the function and process its result
                 const rawResult = await funcMetadata.func(...Object.values(args));
-                const result = this.handleFunctionResult(rawResult);
+                const result = await this.handleFunctionResult(rawResult);
 
                 this.logger.info({
                     msg: `Function ${funcMetadata.name} executed successfully`,
@@ -396,41 +396,65 @@ export class OrchTS
 
     /**
      * Processes and standardizes the result returned by a function execution.
-     * Handles different return types (Result object, Agent instance, or string-convertible value).
+     * Handles different return types (Result object, Agent instance, Promise, or string-convertible value).
      * 
      * @param result - Raw result from function execution
-     * @returns Standardized Result object
+     * @returns Promise of a standardized Result object
      * @throws TypeError if result cannot be properly processed
      * @private
      */
-    private handleFunctionResult(result: any): Result // eslint-disable-line @typescript-eslint/no-explicit-any
+    private async handleFunctionResult(result: any): Promise<Result> // eslint-disable-line @typescript-eslint/no-explicit-any
     {
-        if (this.isResult(result))
-        {
-            // If result is already a Result object, return it
-            return result;
-        }
-        if (result instanceof Agent)
-        {
-            // If result is an Agent instance, return a Result with the agent
-            return {
-                value: JSON.stringify({ assistant: result.name }),
-                agent: result,
-                context_variables: {}
-            };
-        }
         try
         {
-            // Try to convert the result to a string
-            return {
-                value: String(result),
-                context_variables: {}
-            };
-        }
-        catch (e) // eslint-disable-line @typescript-eslint/no-unused-vars
-        {
-            const errorMessage = `Failed to cast response to string: ${result}. Make sure agent functions return a string, Agent, or Result object.`;
+            // Handle Promise results
+            if (result instanceof Promise)
+            {
+                const resolvedResult = await result;
+                return this.handleFunctionResult(resolvedResult);
+            }
 
+            // Handle Result objects
+            if (this.isResult(result))
+            {
+                this.logger.info('Result object returned from function');
+                return result;
+            }
+
+            // Handle Agent instances using duck typing
+            if (result &&
+                typeof result === 'object' &&
+                'name' in result &&
+                typeof result.name === 'string' &&
+                'getInstructions' in result &&
+                typeof result.getInstructions === 'function')
+            {
+                this.logger.info('Agent instance returned from function');
+                return {
+                    value: JSON.stringify({ assistant: result.name }),
+                    agent: result,
+                    context_variables: {}
+                };
+            }
+
+            // Handle string-convertible values
+            if (result !== undefined && result !== null)
+            {
+                this.logger.info('String-convertible value returned from function');
+                return {
+                    value: String(result),
+                    context_variables: {}
+                };
+            }
+
+            // Handle undefined/null values
+            const errorMessage = 'Result is undefined or null';
+            this.logger.error(errorMessage);
+            throw new TypeError(errorMessage);
+
+        } catch (e)
+        {
+            const errorMessage = `Failed to process response: ${e instanceof Error ? e.message : String(e)}. Make sure agent functions return a string, Agent, Result object, or a Promise of these types.`;
             this.logger.error(errorMessage);
             throw new TypeError(errorMessage);
         }

@@ -8,7 +8,7 @@ const client = new OrchTS({ debug: false, defaultLLMProvider: ollama });
 class WeatherFunctions extends FunctionBase
 {
     @AgentFunction('get the current weather')
-    get_weather(countryCode: string, zipCode: string, @AgentFuncParam({ type: 'ContextVariables' }) contextVars: ContextVariables)
+    get_weather(@AgentFuncParam({ type: 'String' }) countryCode: string, @AgentFuncParam({ type: 'String' }) zipCode: string, @AgentFuncParam({ type: 'ContextVariables' }) contextVars: ContextVariables)
     {
         return `{'temp': ${contextVars['temperature']}, 'unit':'F'}`;
     }

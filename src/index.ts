@@ -1,4 +1,4 @@
-require('reflect-metadata');
+import 'reflect-metadata';
 
 export { Agent } from './agent.js';
 export { OrchTS } from './orchts.js';
