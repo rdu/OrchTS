@@ -18,6 +18,7 @@ export class Agent
         functions?: Array<Function>,
         llmProvider?: LLMProvider,
         tool_choice?: ToolChoice | null,
+        parallel_tool_calls?: boolean,
         debug?: Debug
     })
     { }

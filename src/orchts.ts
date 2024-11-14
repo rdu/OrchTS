@@ -178,7 +178,8 @@ export class OrchTS
         const params: LLMProviderParams = {
             messages: updatedMessages as Message[],
             tools: tools.length > 0 ? tools : undefined,
-            tool_choice: agent.params.tool_choice || null
+            tool_choice: agent.params.tool_choice || null,
+            parallel_tool_calls: agent.params.parallel_tool_calls || undefined
         };
 
         // Log the parameters sent to LLM provider
