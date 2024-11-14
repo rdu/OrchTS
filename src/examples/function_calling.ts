@@ -8,7 +8,7 @@ class WeatherFunctions extends FunctionBase
     @AgentFunction('get the current weather')
     get_weather(@AgentFuncParam({ type: 'String' }) countryCode: string, @AgentFuncParam({ type: 'String' }) zipCode: string, @AgentFuncParam({ type: 'ContextVariables' }) contextVars: ContextVariables)
     {
-        return new Promise((resolve, reject) =>
+        return new Promise((resolve) =>
         {
             setTimeout(() =>
             {

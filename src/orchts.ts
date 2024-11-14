@@ -411,6 +411,7 @@ export class OrchTS
             if (result instanceof Promise)
             {
                 const resolvedResult = await result;
+
                 return this.handleFunctionResult(resolvedResult);
             }
 
@@ -418,6 +419,7 @@ export class OrchTS
             if (this.isResult(result))
             {
                 this.logger.info('Result object returned from function');
+
                 return result;
             }
 
@@ -430,6 +432,7 @@ export class OrchTS
                 typeof result.getInstructions === 'function')
             {
                 this.logger.info('Agent instance returned from function');
+
                 return {
                     value: JSON.stringify({ assistant: result.name }),
                     agent: result,
@@ -441,6 +444,7 @@ export class OrchTS
             if (result !== undefined && result !== null)
             {
                 this.logger.info('String-convertible value returned from function');
+
                 return {
                     value: String(result),
                     context_variables: {}
@@ -449,13 +453,17 @@ export class OrchTS
 
             // Handle undefined/null values
             const errorMessage = 'Result is undefined or null';
-            this.logger.error(errorMessage);
-            throw new TypeError(errorMessage);
 
-        } catch (e)
+            this.logger.error(errorMessage);
+
+            throw new TypeError(errorMessage);
+        }
+        catch (e)
         {
             const errorMessage = `Failed to process response: ${e instanceof Error ? e.message : String(e)}. Make sure agent functions return a string, Agent, Result object, or a Promise of these types.`;
+
             this.logger.error(errorMessage);
+
             throw new TypeError(errorMessage);
         }
     }
