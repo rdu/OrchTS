@@ -149,7 +149,8 @@ export class OpenAIProvider implements LLMProvider
                 model: this.model,
                 messages: params.messages,
                 tools: tools,
-                tool_choice: params.tool_choice
+                tool_choice: params.tool_choice,
+                parallel_tool_calls: params.parallel_tool_calls
             });
 
             // Send the completion request to OpenAI API.
@@ -157,6 +158,7 @@ export class OpenAIProvider implements LLMProvider
                 model: this.model,
                 messages: this.convertMessages(params.messages),
                 tools: tools,
+                parallel_tool_calls: params.parallel_tool_calls || false,
                 tool_choice: params.tool_choice || undefined
             });
 

@@ -24,6 +24,7 @@ export interface LLMProviderParams
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tools?: any[];
     tool_choice?: ToolChoice | null;
+    parallel_tool_calls?: boolean;
 }
 
 export interface LLMProvider
